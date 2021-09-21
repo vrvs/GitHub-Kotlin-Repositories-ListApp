@@ -61,6 +61,9 @@ dependencies {
     implementation "io.insert-koin:koin-android-compat:$versions.koin_android"
     implementation "io.insert-koin:koin-androidx-compose:$versions.koin_android"
     implementation "androidx.legacy:legacy-support-v4:$versions.legacy"
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+
+    annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
 
     kapt "androidx.room:room-compiler:$versions.room"
 
