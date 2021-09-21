@@ -57,15 +57,25 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlin_coroutine"
-    implementation "org.koin:koin-android:$versions.koin_android"
-    implementation "org.koin:koin-android-ext:$versions.koin_android"
-    implementation "org.koin:koin-android-viewmodel:$versions.koin_android"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "io.insert-koin:koin-android:$versions.koin_android"
+    implementation "io.insert-koin:koin-android-compat:$versions.koin_android"
+    implementation "io.insert-koin:koin-androidx-compose:$versions.koin_android"
+    implementation "androidx.legacy:legacy-support-v4:$versions.legacy"
 
     kapt "androidx.room:room-compiler:$versions.room"
 
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.kotlin_coroutine"
     testImplementation "junit:junit:$versions.junit"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.okhttp"
+    testImplementation "io.insert-koin:koin-test:$versions.koin_android"
+    testImplementation "io.insert-koin:koin-test-junit4:$versions.koin_android"
+    testImplementation "androidx.test:core:$versions.test"
+    testImplementation "org.mockito:mockito-core:$versions.mockito"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$versions.mockito_kotlin"
+    testImplementation "org.mockito:mockito-inline:$versions.mockito"
+    testImplementation "org.robolectric:robolectric:$versions.roboletric"
 
     androidTestImplementation "androidx.test.ext:junit:$versions.ext_junit"
+    androidTestImplementation "org.mockito:mockito-android:$versions.mockito"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
 }
