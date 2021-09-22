@@ -7,8 +7,10 @@ import com.github.vrvs.githubapp.data.datasource.remote.GitHubReposRemoteDataSou
 import com.github.vrvs.githubapp.data.datasource.remote.interceptor.CacheInterceptor
 import com.github.vrvs.githubapp.data.repository.GitHubReposRepositoryImpl
 import com.github.vrvs.githubapp.domain.repository.GitHubReposRepository
+import com.github.vrvs.githubapp.presentation.viewmodel.GitHubReposViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,6 +37,18 @@ object DependencyInjectionModule {
                 provideGitHubApi(get())
             }
         }
+
+        object PresentationModule {
+            val modules = listOf(viewModel())
+
+            private fun viewModel() = module {
+                viewModel {
+                    provideViewModel()
+                }
+            }
+        }
+
+        private fun provideViewModel() = GitHubReposViewModel()
 
         private fun dataSourceModule() = module {
             single<GitHubReposDataSource> {

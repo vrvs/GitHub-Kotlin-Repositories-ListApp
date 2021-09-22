@@ -2,6 +2,7 @@ package com.github.vrvs.githubapp.app
 
 import android.app.Application
 import com.github.vrvs.githubapp.di.DependencyInjectionModule.DataModule
+import com.github.vrvs.githubapp.di.DependencyInjectionModule.DataModule.PresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class GitHubAppApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@GitHubAppApplication)
-            modules(DataModule.modules)
+            modules(DataModule.modules + PresentationModule.modules)
         }
     }
 }
