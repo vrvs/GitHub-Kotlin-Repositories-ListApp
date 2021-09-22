@@ -22,6 +22,10 @@ class GitHubReposViewModel(
     @VisibleForTesting
     internal val page: AtomicLong = AtomicLong(1)
 
+    private var privateCreated = false
+    val created: Boolean
+        get() = privateCreated
+
     init {
         viewModelScope.launch(dispatcher) {
             interpreter.collect { intent ->
@@ -33,9 +37,25 @@ class GitHubReposViewModel(
                     is Intent.ClickItem -> {
                         interpretSideEffect(intent)
                     }
+                    is Intent.SaveState -> {
+                        interpretSaveState(intent)
+                    }
+                    is Intent.Create -> {
+                        privateCreated = true
+                    }
                 }
             }
         }
+    }
+
+    override fun onCleared() {
+        privateCreated = false
+        super.onCleared()
+    }
+
+    private fun interpretSaveState(intent: Intent.SaveState) {
+        if (internalState.value is State.UpdateList || intent.force)
+            internalState.value = State.UpdateList(intent.list, false)
     }
 
     private suspend fun interpretLoads(intent: Intent) {

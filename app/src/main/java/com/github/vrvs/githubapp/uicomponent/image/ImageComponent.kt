@@ -3,6 +3,7 @@ package com.github.vrvs.githubapp.uicomponent.image
 import android.content.Context
 import android.util.AttributeSet
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.vrvs.githubapp.R
 import com.github.vrvs.githubapp.utils.Utils
 import com.github.vrvs.githubapp.utils.Utils.safeLet
@@ -42,6 +43,7 @@ class ImageComponent @JvmOverloads constructor(
                     .load(url)
                     .centerCrop()
                     .placeholder(R.drawable.ic_outline_image_24)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(this)
             } else {
                 Glide

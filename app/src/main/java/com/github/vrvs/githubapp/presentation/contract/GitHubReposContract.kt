@@ -20,6 +20,11 @@ interface GitHubReposContract {
         data class ClickItem(
             val id: String
         ): Intent()
+        data class SaveState(
+            val list: List<RepositoryComponent.ComponentModel>,
+            val force: Boolean = false
+        ): Intent()
+        object Create: Intent()
     }
 
     sealed class SideEffect {
