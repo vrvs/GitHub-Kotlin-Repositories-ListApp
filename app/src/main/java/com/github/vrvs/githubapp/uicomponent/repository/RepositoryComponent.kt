@@ -19,8 +19,8 @@ class RepositoryComponent @JvmOverloads constructor(
         val id: String,
         val repoName: String,
         val authorName: String,
-        val starsNumber: Int,
-        val forksNumber: Int,
+        val starsNumber: Long,
+        val forksNumber: Long,
         val imageUrl: String?
     )
 
