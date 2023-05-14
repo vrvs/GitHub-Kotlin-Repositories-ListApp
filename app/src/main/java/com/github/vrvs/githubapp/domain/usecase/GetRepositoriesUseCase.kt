@@ -9,24 +9,10 @@ import kotlinx.coroutines.flow.flow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class GetRepositoriesUseCase: BaseUseCase<Long, List<GitHubRepositoryEntity>>(), KoinComponent {
+class GetRepositoriesUseCase:  KoinComponent {
 
     private val gitHubReposRepository: GitHubReposRepository by inject()
 
-    override suspend fun execute(): Flow<Result<List<GitHubRepositoryEntity>>> = flow {
-        super.parameter.let { page ->
-            if (page == null) {
-                emit(Result.Error(Exception(PARAMETER_NOT_RECEIVED_MESSAGE_EXCEPTION)))
-            } else {
-                val flow = gitHubReposRepository.getRepositories(page)
-                flow.collect {
-                    emit(it)
-                }
-            }
-        }
-    }
-
-    companion object {
-        const val PARAMETER_NOT_RECEIVED_MESSAGE_EXCEPTION = "Parameter Not Received"
-    }
+    fun execute(page: Long): Flow<Result<List<GitHubRepositoryEntity>>> =
+        gitHubReposRepository.getRepositories(page)
 }

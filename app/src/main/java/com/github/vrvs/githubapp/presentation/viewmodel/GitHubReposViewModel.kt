@@ -66,8 +66,7 @@ class GitHubReposViewModel(
                 if (intent is Intent.Reload) {
                     page.set(1)
                 }
-                useCase.parameter = page.get()
-                useCase.execute().collect { result ->
+                useCase.execute(page.get()).collect { result ->
                     reduce(result, intent)
                 }
             }

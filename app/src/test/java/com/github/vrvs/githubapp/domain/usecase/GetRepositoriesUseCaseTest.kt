@@ -6,7 +6,6 @@ import com.github.vrvs.githubapp.Fixture.REPOSITORIES_ENTITY_LIST
 import com.github.vrvs.githubapp.app.KoinTestApplication
 import com.github.vrvs.githubapp.domain.entity.Result
 import com.github.vrvs.githubapp.domain.repository.GitHubReposRepository
-import com.github.vrvs.githubapp.domain.usecase.GetRepositoriesUseCase.Companion.PARAMETER_NOT_RECEIVED_MESSAGE_EXCEPTION
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -67,8 +66,7 @@ class GetRepositoriesUseCaseTest : KoinTest {
                 )
                 whenever(gitHubReposRepository.getRepositories(1)).thenReturn(flow)
 
-                useCase.parameter = 1
-                useCase.execute().collectIndexed { index, value ->
+                useCase.execute(1).collectIndexed { index, value ->
                     when (index) {
                         0 -> {
                             assertTrue {
@@ -99,33 +97,5 @@ class GetRepositoriesUseCaseTest : KoinTest {
                 }
             }
             assertEquals(10, count)
-        }
-
-    @Test
-    fun `get repositories use case should emit values that comes from repository when parameter is null`() =
-        app.loadModules(
-            module {
-                single { gitHubReposRepository }
-            }
-        ) {
-            var count = 0
-            runBlocking {
-                useCase.execute().collectIndexed { index, value ->
-                    when (index) {
-                        0 ->  {
-                            assertEquals(
-                                expected = PARAMETER_NOT_RECEIVED_MESSAGE_EXCEPTION,
-                                actual = (value as Result.Error).error.message
-                            )
-                            count+=2
-                            verifyZeroInteractions(gitHubReposRepository)
-                        }
-                        else -> {
-                            fail()
-                        }
-                    }
-                }
-            }
-            assertEquals(2, count)
         }
 }
